@@ -1,0 +1,88 @@
+
+@model BUA_project.Models.ViewModels.UserReservationViewModel
+
+@{
+    ViewData["Title"] = "Create Reservation";
+}
+
+<h1>Create Reservation</h1>
+
+@if (ViewBag.Vehicle != null)
+{
+    <div>
+        <h3>
+            @ViewBag.Vehicle.Brand @ViewBag.Vehicle.Model
+        </h3>
+
+        <p>
+            Type: @ViewBag.Vehicle.Type
+        </p>
+
+        <p>
+            Seats: @ViewBag.Vehicle.Seats
+        </p>
+
+        <p>
+            Fuel: @ViewBag.Vehicle.FuelType
+        </p>
+    </div>
+}
+
+<form asp-action="Create" method="post">
+
+    <input type="hidden"
+           asp-for="VehicleId" />
+
+    <div>
+        <label asp-for="StartDateTime"></label>
+        <input asp-for="StartDateTime"
+               type="datetime-local" />
+        <span asp-validation-for="StartDateTime"></span>
+    </div>
+
+    <div>
+        <label asp-for="EndDateTime"></label>
+        <input asp-for="EndDateTime"
+               type="datetime-local" />
+        <span asp-validation-for="EndDateTime"></span>
+    </div>
+
+    <div>
+        <label asp-for="Origin"></label>
+        <input asp-for="Origin" />
+        <span asp-validation-for="Origin"></span>
+    </div>
+
+    <div>
+        <label asp-for="Destination"></label>
+        <input asp-for="Destination" />
+        <span asp-validation-for="Destination"></span>
+    </div>
+
+    <div>
+        <label asp-for="Passengers"></label>
+        <input asp-for="Passengers" />
+        <span asp-validation-for="Passengers"></span>
+    </div>
+
+    <div>
+        <label asp-for="Load"></label>
+        <input asp-for="Load" />
+        <span asp-validation-for="Load"></span>
+    </div>
+
+    <div>
+        <label asp-for="Purpose"></label>
+        <textarea asp-for="Purpose"></textarea>
+        <span asp-validation-for="Purpose"></span>
+    </div>
+
+    <button type="submit">
+        Submit Reservation
+    </button>
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
