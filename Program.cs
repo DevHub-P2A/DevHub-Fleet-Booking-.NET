@@ -37,7 +37,10 @@ namespace BUA_project
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
+            
+                var db = services.GetRequiredService<Entity>();
+                db.Database.EnsureCreated();
+            
                 await IdentitySeed.SeedAsync(services);
             }
 
