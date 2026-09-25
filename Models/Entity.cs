@@ -62,8 +62,10 @@ namespace BUA_project.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //option(dbms)
-            optionsBuilder.UseSqlServer("Server=.;Database=BUA_ProjectDB;Trusted_Connection=True;TrustServerCertificate=True;");
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=.;Database=BUA_ProjectDB;Trusted_Connection=True;TrustServerCertificate=True;");
+            }
             base.OnConfiguring(optionsBuilder);
         }
     }
