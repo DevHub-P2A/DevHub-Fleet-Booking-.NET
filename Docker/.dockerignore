@@ -1,0 +1,5 @@
+# Ignoring unnecessary files
+**/bin/
+**/obj/
+.git/
+.gitignore
