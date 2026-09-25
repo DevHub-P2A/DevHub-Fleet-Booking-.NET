@@ -49,5 +49,5 @@ jobs:
           script: |
             cd ~/deploy
             curl -fsSL https://raw.githubusercontent.com/DevHub-P2A/DevHub-Fleet-Booking-Deploy/main/docker-compose.yml -o docker-compose.yml
-            docker compose pull ml-model
-            docker compose up -d ml-model
+            docker compose pull mvc-app
+            docker compose up -d mvc-app
