@@ -1,0 +1,23 @@
+# Setting up the SDK
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+COPY BUA_project.csproj .
+RUN dotnet restore "BUA_project.csproj"
+
+COPY . .
+# Preparing the app to be deployed
+RUN dotnet publish "BUA_project.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+# Setting up the runtime
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+WORKDIR /app
+
+COPY --from=build /app/publish .
+
+# Configuring the .NET project to be exposed on port 8080
+ENV ASPNETCORE_URLS=http://+:8080
+EXPOSE 8080
+
+# Starting the app when the container is launched
+ENTRYPOINT ["dotnet", "BUA_project.dll"]
