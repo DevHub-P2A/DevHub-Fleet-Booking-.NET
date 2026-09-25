@@ -1,6 +1,7 @@
 using BUA_project.Models;
 using Microsoft.AspNetCore.Identity;
 using BUA_project.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace BUA_project
 {
