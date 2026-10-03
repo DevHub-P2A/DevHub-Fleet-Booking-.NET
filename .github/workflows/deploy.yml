@@ -42,12 +42,17 @@ jobs:
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.0.3
+        env:
+          DB_CONNECTION_STRING: ${{ secrets.DB_CONNECTION_STRING }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          envs: DB_CONNECTION_STRING
           script: |
             cd ~/deploy
+            umask 077
+            printf "DB_CONNECTION_STRING='%s'\n" "$DB_CONNECTION_STRING" > .env
             curl -fsSL https://raw.githubusercontent.com/DevHub-P2A/DevHub-Fleet-Booking-Deploy/main/docker-compose.yml -o docker-compose.yml
-            docker compose pull ml-model
-            docker compose up -d ml-model
+            docker compose pull mvc-app
+            docker compose up -d --remove-orphans mvc-app
